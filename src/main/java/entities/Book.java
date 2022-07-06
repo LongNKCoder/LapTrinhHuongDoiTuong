@@ -83,4 +83,25 @@ public abstract class Book {
     }
 
     public abstract String getClassType();
+
+    public boolean validate(){
+        boolean result = true;
+        if (this.ID == ""){
+            System.out.println("ID trống");
+            result = false;
+        }
+        if (this.title == ""){
+            System.out.println("Tiêu đề trống");
+            result = false;
+        }
+        if (this.author == ""){
+            System.out.println("Tác giả trống");
+            result = false;
+        }
+        if (this.price <= 0){
+            System.out.println("giá âm hoặc bằng 0");
+            result = false;
+        }
+        return result;
+    }
 }
