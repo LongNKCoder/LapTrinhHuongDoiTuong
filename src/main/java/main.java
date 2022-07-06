@@ -16,16 +16,16 @@ public class main {
         listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 2", "Nguyễn Kim", "002", 32000f, publiser1, new Date()));
         listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 3", "Bùi Quang Cơ", "003", 35000f, publiser2, new Date()));
 
-        System.out.println("Chào mừng bạn đến với nhà sách UIT");
-        System.out.println("**********************************");
-        System.out.println("1. Nhập sách mới");
-        System.out.println("2. Xem danh sách sách đang có trong thư viện");
-        System.out.println("3. Thống kê sách theo tác giả");
-        System.out.println("4. Thống kê theo nhà xuất bản");
-        System.out.println("5. Thống kê theo thể loại");
-        System.out.println("6. Thoát chương trình");
         Scanner dataIn = new Scanner(System.in);
         while (true) {
+            System.out.println("Chào mừng bạn đến với nhà sách UIT");
+            System.out.println("**********************************");
+            System.out.println("1. Nhập sách mới");
+            System.out.println("2. Xem danh sách sách đang có trong thư viện");
+            System.out.println("3. Thống kê sách theo tác giả");
+            System.out.println("4. Thống kê theo nhà xuất bản");
+            System.out.println("5. Thống kê theo thể loại");
+            System.out.println("6. Thoát chương trình");
             System.out.println("Xin mời bạn chọn chức năng: ");
             int choice;
             try {
@@ -84,13 +84,13 @@ public class main {
 
     public static void inputBook(List<Book> listBooks, List<Publisher> listPublishers) {
         Scanner dataIn = new Scanner(System.in);
-        System.out.println("Loại sách muốn nhập");
-        System.out.println("1. Sách thiếu nhi");
-        System.out.println("2. Truyện tranh");
-        System.out.println("3. Sách văn học");
-        System.out.println("4. Tiểu thuyết");
 
         while (true) {
+            System.out.println("Loại sách muốn nhập");
+            System.out.println("1. Sách thiếu nhi");
+            System.out.println("2. Truyện tranh");
+            System.out.println("3. Sách văn học");
+            System.out.println("4. Tiểu thuyết");
             int choice;
             try {
                 choice = Integer.parseInt(dataIn.nextLine());
@@ -159,10 +159,17 @@ public class main {
             bookInput.setPrice(price);
             bookInput.setPublisher(publisher);
             bookInput.setReleaseDate(dateRelease);
-            listBooks.add(bookInput);
+
+            if (bookInput.validate()){
+                listBooks.add(bookInput);
+            } else {
+                System.out.println("Dữ liệu không hợp ");
+                System.out.println("Nhập lại");
+                continue;
+            }
             System.out.println("Xong!!!");
             System.out.println("Bạn muốn tiếp tục nhập sách hay trở về màn hình chính");
-            System.out.println("1. Có   2. Trờ về trang chính");
+            System.out.println("1. Nhập tiếp   2. Trờ về trang chính");
             try {
                 choice = Integer.parseInt(dataIn.nextLine());
             } catch (Exception e) {
