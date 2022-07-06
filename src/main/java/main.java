@@ -13,7 +13,7 @@ public class main {
         List<Book> listBooks = new ArrayList<>();
 
         listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 1", "Bùi Quang Cơ", "001", 30000f, publiser2, new Date()));
-        listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 2", "Nguyễn Kim", "002", 32000f, publiser2, new Date()));
+        listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 2", "Nguyễn Kim", "002", 32000f, publiser1, new Date()));
         listBooks.add(new ChildBook("Sách giáo khoa cho trẻ nhỏ tập 3", "Bùi Quang Cơ", "003", 35000f, publiser2, new Date()));
 
         System.out.println("Chào mừng bạn đến với nhà sách UIT");
@@ -48,11 +48,11 @@ public class main {
                     break;
                 case 4:
                     //method thong ke nha xuat ban
-                    System.out.println("Đây là tính năng thống kê nhà xuất bản");
+                    getPublishers(listBooks);
                     break;
                 case 5:
                     //method thong ke theo the loai
-                    System.out.println("Đây là tính năng thống kê thể loại");
+                    getTypes(listBooks);
                     break;
                 case 6:
                     System.exit(0);
@@ -77,7 +77,7 @@ public class main {
     }
 
     public static void listDisplay(List<Book> listBooks) {
-        for (Book book: listBooks) {
+        for (Book book : listBooks) {
             System.out.println(book.toString());
         }
     }
@@ -90,7 +90,7 @@ public class main {
         System.out.println("3. Sách văn học");
         System.out.println("4. Tiểu thuyết");
 
-        while (true){
+        while (true) {
             int choice;
             try {
                 choice = Integer.parseInt(dataIn.nextLine());
@@ -98,7 +98,11 @@ public class main {
                 System.out.println("Bạn nhập sai số");
                 continue;
             }
-            Book bookInput = new Book(){};
+            Book bookInput = new Book() {
+                public String getClassType() {
+                    return "Book";
+                }
+            };
             switch (choice) {
                 case 1:
                     bookInput = new ChildBook();
@@ -128,7 +132,7 @@ public class main {
                 continue;
             }
             System.out.println("Chọn nhà xuất bản");
-            for (Publisher publisher: listPublishers)  {
+            for (Publisher publisher : listPublishers) {
                 System.out.println(publisher.toString());
             }
             try {
@@ -145,7 +149,7 @@ public class main {
             Date dateRelease;
             try {
                 dateRelease = simpleDateFormat.parse(dataIn.nextLine());
-            } catch ( Exception e) {
+            } catch (Exception e) {
                 System.out.println("Ngày định dạng sai mời nhập lại");
                 continue;
             }
@@ -166,23 +170,52 @@ public class main {
             }
             if (choice == 1) {
                 continue;
-            } else{
+            } else {
                 return;
             }
         }
     }
 
-    public static void getAuthors(List<Book> listBooks){
+    public static void getAuthors(List<Book> listBooks) {
         HashMap<String, Integer> listAuthors = new HashMap<String, Integer>();
-        for(Book book: listBooks) {
+        for (Book book : listBooks) {
             if (listAuthors.containsKey(book.getAuthor())) {
                 listAuthors.put(book.getAuthor(), listAuthors.get(book.getAuthor()) + 1);
             } else {
                 listAuthors.put(book.getAuthor(), 1);
             }
         }
-        for(String author : listAuthors.keySet()) {
+        for (String author : listAuthors.keySet()) {
             System.out.println(author + " có số sách là: " + listAuthors.get(author));
+        }
+    }
+
+    public static void getPublishers(List<Book> listBooks) {
+        HashMap<String, Integer> listPublishers = new HashMap<String, Integer>();
+        for (Book book : listBooks) {
+            if (listPublishers.containsKey(book.getPublisher().getName())) {
+                listPublishers.put(book.getPublisher().getName(), listPublishers.get(book.getPublisher().getName()) + 1);
+            } else {
+                listPublishers.put(book.getPublisher().getName(), 1);
+            }
+        }
+        for (String publisher : listPublishers.keySet()) {
+            System.out.println(publisher + " có số sách là: " + listPublishers.get(publisher));
+        }
+    }
+
+    public static void getTypes(List<Book> listBooks) {
+        HashMap<String, Integer> listTypes = new HashMap<String, Integer>();
+        for (Book book : listBooks) {
+            if (listTypes.get(book.getClassType()) == null) {
+                listTypes.put(book.getClassType(), 1);
+            } else {
+                listTypes.put(book.getClassType(), listTypes.get(book.getClassType()) + 1);
+            }
+        }
+
+        for (String publisher : listTypes.keySet()) {
+            System.out.println(publisher + " có số sách là: " + listTypes.get(publisher));
         }
     }
 }

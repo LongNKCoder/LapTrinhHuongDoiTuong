@@ -81,4 +81,6 @@ public abstract class Book {
                 ", releaseDate=" + releaseDate +
                 '}';
     }
+
+    public abstract String getClassType();
 }
